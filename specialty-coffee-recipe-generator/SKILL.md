@@ -39,6 +39,8 @@ Las siguientes reglas definen el comportamiento detallado del agente. Consultar 
 - `rules/1zpresso-q-air-grind-table.md` -- Tabla de molido del 1ZPresso Q-Air.
 - `rules/baratza-encore-esp-grind-table.md` -- Tabla de molido del Baratza Encore ESP.
 
+Toda receta debe incluir obligatoriamente: parametros (dosis en gramos, volumen de agua o ratio, temperatura, tiempo total objetivo), configuracion de molino especifica, pasos de preparacion numerados, y guia de ajuste rapido (que cambiar si queda demasiado amargo, plano o acido).
+
 ---
 
 ## Nivel esperado
