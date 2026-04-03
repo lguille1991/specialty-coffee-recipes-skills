@@ -54,14 +54,41 @@ La receta debe construirse así:
 
 | Método | Rango base (clicks) | Temperatura base |
 |--------|---------------------|------------------|
-| V60 / Origami / Orea | 78 – 84 | 92–94°C |
+| V60 / Origami | 78 – 84 | 92–94°C |
+| Orea V4 | 76 – 83 | 92–94°C |
 | Hario Switch | 80 – 86 | 91–94°C |
+| Kalita Wave | 80 – 86 | 91–93°C |
+| Chemex | 82 – 88 | 92–94°C |
+| Ceado Hoop | 80 – 87 | 91–94°C |
 | Pulsar | 78 – 85 | 91–94°C |
 | AeroPress | 70 – 80 | 88–92°C |
+
+> Nota sobre temperatura: todos los valores se refieren a **temperatura del kettle**. Con kettle de cuello de ganso y vertido lento, esperar una pérdida de ~2–3°C en el slurry.
 
 Regla:
 - El agente debe tomar este rango como **zona neutra inicial**.
 - Nunca debe partir de un valor aislado si aún no evaluó los demás factores.
+
+---
+
+## 🔶 BLOQUE 1B – RANGOS DE RATIO POR MÉTODO
+
+El ratio es una variable crítica de extracción. El agente debe elegir dentro de estos rangos según intensidad deseada.
+
+| Método | Rango de ratio | Nota |
+|--------|---------------|------|
+| V60 / Origami / Orea V4 | 1:15 – 1:17 | Zona más común: 1:16 |
+| Hario Switch | 1:13 – 1:16 | Inmersión tolera más concentración |
+| Kalita Wave | 1:15 – 1:17 | Similar a V60 |
+| Chemex | 1:15 – 1:17 | Filtro grueso compensa ratio estándar |
+| Ceado Hoop | 1:14 – 1:16 | Flujo controlado admite más café |
+| Pulsar | 1:14 – 1:16 | |
+| AeroPress | 1:11 – 1:16 | El más flexible; inmersión corta puede ir 1:11–1:13 |
+
+Ajuste de ratio por perfil:
+- Café complejo (natural/anaeróbico): puede ir hacia el lado más diluido del rango para evitar saturación
+- Café delicado o floral: mantener zona media-alta (más agua) para claridad en taza
+- Café muy viejo o plano: bajar el ratio (más café) como primera corrección antes de cambiar molido
 
 ---
 
@@ -127,7 +154,8 @@ La frescura afecta principalmente el **CO₂**, el bloom y la estabilidad del fl
 |---------|---------|
 | 1–7 días | muy fresco |
 | 8–21 días | ventana óptima |
-| 22+ días | café más viejo |
+| 22–45 días | café más viejo |
+| 46+ días | café pasado de ventana |
 
 ### Molido (K-Ultra)
 
@@ -135,7 +163,8 @@ La frescura afecta principalmente el **CO₂**, el bloom y la estabilidad del fl
 |---------|--------|
 | Muy fresco | +1 a +2 clicks |
 | Óptimo | neutro |
-| Más viejo | -1 a -3 clicks |
+| Más viejo (22–45 días) | -1 a -3 clicks |
+| Pasado (46+ días) | -2 a -4 clicks |
 
 ### Temperatura
 
@@ -143,7 +172,8 @@ La frescura afecta principalmente el **CO₂**, el bloom y la estabilidad del fl
 |---------|--------|
 | Muy fresco | neutro o -1°C si el café se muestra agresivo |
 | Óptimo | neutro |
-| Más viejo | +1 a +2°C |
+| Más viejo (22–45 días) | +1 a +2°C |
+| Pasado (46+ días) | +2 a +3°C |
 
 ### Ajustes de técnica
 
@@ -156,16 +186,23 @@ La frescura afecta principalmente el **CO₂**, el bloom y la estabilidad del fl
 **Óptimo (8–21 días):**
 - Usar el sistema normalmente
 
-**Más viejo (22+ días):**
+**Más viejo (22–45 días):**
 - Más fino
 - Más temperatura
 - Más agitación si la taza sale plana
 
+**Pasado (46+ días):**
+- Ajustes agresivos: molido fino + temperatura alta + agitación
+- Ratio más concentrado (bajar a zona baja del rango) para recuperar intensidad
+- Advertir que el café puede haber perdido complejidad de forma irreversible
+
 ---
 
-## 🔶 BLOQUE 5 – AJUSTE FINO POR VARIEDAD
+## 🔶 BLOQUE 5 – AJUSTE FINO POR DENSIDAD (VARIEDAD + ALTITUD)
 
-La variedad es un **micro ajuste**, no el factor dominante.
+La densidad del grano es una función combinada de **variedad + altitud de cultivo**. Es un micro ajuste, no el factor dominante.
+
+### Por variedad
 
 | Tipo | Ajuste |
 |------|--------|
@@ -174,9 +211,35 @@ La variedad es un **micro ajuste**, no el factor dominante.
 | Baja densidad | +1 a +2 clicks |
 | Pacamara | puede ir fino, pero controlar flujo |
 
+### Por altitud de cultivo
+
+| Altitud | Ajuste |
+|---------|--------|
+| Alta (>1800 msnm) | -1 a -2 clicks / +1°C |
+| Media (1200–1800 msnm) | neutro |
+| Baja (<1200 msnm) | +1 a +2 clicks |
+
+Cuando variedad y altitud señalen en la misma dirección, aplicar el ajuste una sola vez en la zona media de ambos offsets — no sumarlos mecánicamente.
+
 Regla:
-- La variedad nunca debe sobreescribir la lógica de proceso, tueste o frescura.
+- Densidad nunca debe sobreescribir la lógica de proceso, tueste o frescura.
 - Solo debe afinar el rango final.
+
+---
+
+## 🔶 BLOQUE 5B – REGLA DE ACUMULACIÓN MÁXIMA DE OFFSETS
+
+Cuando se apilan todos los offsets, el rango operativo final no debe exceder **10 clicks de amplitud**.
+
+Si el rango acumulado es mayor:
+1. Comprimir hacia el centro del rango
+2. Priorizar proceso y tueste como factores dominantes
+3. Frescura y densidad actúan como micro-ajustes de ±1–2 clicks sobre ese centro
+
+Ejemplo de compresión:
+- Rango acumulado teórico: 76–91 (15 clicks) → comprimir a zona 81–87 (6 clicks), centrando en proceso natural + tueste claro
+
+Esta regla garantiza que la receta sea operativamente útil, no una suma mecánica de offsets.
 
 ---
 
@@ -256,8 +319,32 @@ Formato obligatorio:
 **1ZPresso Q-Air**  
 [Conversión equivalente]
 
+**Baratza Encore ESP**  
+[Conversión equivalente — rango 14–24 para pour over]
+
 Descripción:
 [relación con método y comportamiento esperado]
+
+---
+
+### Técnica de vertido
+
+El estilo de vertido debe indicarse en la receta. Guía por método y proceso:
+
+| Método | Estilo recomendado |
+|--------|-------------------|
+| V60 / Origami / Orea V4 | Pulse pour (3–4 pours) |
+| Chemex | Pulse pour suave (2–3 pours, hilo más grueso) |
+| Kalita Wave | Continuous pour circular o 3 pours controlados |
+| Hario Switch | Single pour en inmersión, drenaje al final |
+| Pulsar | Según protocolo de poros del dispositivo |
+| AeroPress | Single pour + agitación según protocolo |
+| Ceado Hoop | Pulse pour moderado |
+
+Ajuste por proceso:
+- **Lavado**: agitación moderada, pulse pour estándar
+- **Honey / Natural**: pours suaves y controlados, minimizar turbulencia
+- **Anaeróbico**: pours lentos, mínima agitación, priorizar limpieza en taza
 
 ---
 

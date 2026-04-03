@@ -30,6 +30,9 @@ La receta SIEMPRE debe seguir exactamente esta estructura:
 **1ZPresso Q-Air**
 [Rango equivalente]
 
+**Baratza Encore ESP**
+[Rango equivalente — zona 14–24 para pour over]
+
 Descripcion del molido:
 [Ej: medio, medio-fino, ligeramente mas fino que V60 clasico, etc.]
 
