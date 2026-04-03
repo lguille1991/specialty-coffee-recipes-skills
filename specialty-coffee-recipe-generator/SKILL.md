@@ -1,3 +1,8 @@
+---
+name: specialty-coffee-recipe-generator
+description: Skill para generar recetas de cafe de especialidad basadas en grano, proceso y metodo de preparacion.
+---
+
 # AI Agent -- Specialty Coffee Recipe Generator
 
 ## Objetivo
