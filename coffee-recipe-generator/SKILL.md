@@ -14,6 +14,10 @@ metadata:
       label: Coffee dose in grams
       required: true
       prompt: "How many grams of coffee will you be using for this recipe?"
+    - name: flavor_intent
+      label: Flavor intent
+      required: true
+      prompt: "What flavor direction do you want: clarity, balanced, sweetness, body, or forgiveness?"
 ---
 
 # Specialty Coffee Core
@@ -48,11 +52,11 @@ Load this skill when the user:
 | Workflow | Required Inputs |
 |----------|----------------|
 | Bag Analysis | Image of the coffee bag/label |
-| Recipe Generation | Brew method, coffee dose (g), origin, processing method |
-| Recipe Adaptation | Base recipe, target bean profile OR target brewer/equipment version, desired flavor outcome |
+| Recipe Generation | Brew method, coffee dose (g), origin, processing method, flavor intent: clarity, balanced, sweetness, body, or forgiveness |
+| Recipe Adaptation | Base recipe, target bean profile OR target brewer/equipment version, flavor intent: clarity, balanced, sweetness, body, or forgiveness |
 | Research | Topic or question |
 
-Optional adjustments: roast level, strength preference, flavor goals, equipment available.
+Optional adjustments: roast level, strength preference, equipment available.
 
 ---
 
@@ -74,7 +78,7 @@ Pitfalls:
 ## Workflow B: Recipe Generation
 
 1. Check for an existing bean profile using this source order: current conversation inputs → attached file/note → configured profile store (if any). If none exist, ask for missing bean details.
-2. Gather required recipe inputs before generating: brew method, coffee dose in grams, origin, and processing method. If brew method is missing, ask: “What brewing method do you want to use?” If coffee dose is missing, ask: “How many grams of coffee will you be using for this recipe?” If both are missing, ask for both in the same message. Do not assume or default the brew method or coffee dose. Origin and processing method are non-negotiable. Do not require a grinder model before generating a recipe, because grinder settings are always produced for the full grinder set below.
+2. Gather required recipe inputs before generating: brew method, coffee dose in grams, origin, processing method, and flavor intent. Flavor intent must be one of: clarity, balanced, sweetness, body, or forgiveness. If brew method is missing, ask: “What brewing method do you want to use?” If coffee dose is missing, ask: “How many grams of coffee will you be using for this recipe?” If flavor intent is missing, ask: “What flavor direction do you want: clarity, balanced, sweetness, body, or forgiveness?” If multiple required inputs are missing, ask for them in the same message. Do not assume or default the brew method, coffee dose, or flavor intent. Origin and processing method are non-negotiable. Do not require a grinder model before generating a recipe, because grinder settings are always produced for the full grinder set below.
 3. Load `references/brew-method-defaults.md` for the method base.
 4. Load `references/grind-determinants.md` and `references/grinder-settings.md`. Apply the five-determinant stack: method base → processing → origin/altitude → roast → variety.
 5. Always include exact settings for every grinder in `references/grinder-settings.md` in one markdown table: 1Zpresso K-Ultra, 1Zpresso Q Air, Baratza Encore ESP, Fellow Opus, and Timemore C2. This is required even when the user mentions only one grinder, does not specify a grinder, or asks for a quick recipe.
@@ -89,14 +93,15 @@ Pitfalls:
    - Troubleshooting Guide
    - Adjusting for Your Taste
 9. Before returning the recipe, verify the Overview contains a grinder table with exactly these five rows: 1Zpresso K-Ultra, 1Zpresso Q Air, Baratza Encore ESP, Fellow Opus, Timemore C2.
-10. Offer pairing context when useful by consulting `references/brew-method-pairings.md` or `references/equipment-profiles.md`.
-11. If the user explicitly wants 4:6, load `references/four-six-method.md`.
-12. Remind the user this is a starting recipe and offer to refine after brewing.
+10. Verify the selected flavor intent appears in the Overview and is reflected in the Flavor Profile and Adjusting for Your Taste guidance.
+11. Offer pairing context when useful by consulting `references/brew-method-pairings.md` or `references/equipment-profiles.md`.
+12. If the user explicitly wants 4:6, load `references/four-six-method.md`.
+13. Remind the user this is a starting recipe and offer to refine after brewing.
 
 Pitfalls:
 - Never omit any of the five grinder rows from generated or adapted recipes.
 - Never rely on generic grind descriptions alone; generic descriptors may appear only as a secondary label after the exact grinder table.
-- Never assume a default brew method or coffee dose; ask the user when either is missing from the initial prompt.
+- Never assume a default brew method, coffee dose, or flavor intent; ask the user when any are missing from the initial prompt.
 - Never fail recipe generation just because no profile store exists.
 
 ---
@@ -125,15 +130,17 @@ Pitfalls:
 ## Workflow D: Recipe Adaptation
 
 1. Read the base recipe and any available bean profile.
-2. Identify what changed:
+2. Gather the required flavor intent before adapting. Flavor intent must be one of: clarity, balanced, sweetness, body, or forgiveness. If missing, ask: “What flavor direction should the adapted recipe target: clarity, balanced, sweetness, body, or forgiveness?”
+3. Identify what changed:
    - bean swap
    - brewer swap
    - attachment/filter swap
-3. Apply adaptation rules from `references/brewer-version-adaptation.md`.
-4. Rebuild the recipe using `templates/recipe-output.md` and include a clear “Changes from Base” section.
-5. Include the full five-grinder table required by Workflow B, recalculated for the adapted recipe rather than copied blindly from the base recipe.
-6. Set expectations honestly when a bean cannot reproduce the same style as another.
-7. Save only if a destination is configured or requested; otherwise return the adapted recipe inline.
+4. Apply adaptation rules from `references/brewer-version-adaptation.md`.
+5. Rebuild the recipe using `templates/recipe-output.md` and include a clear “Changes from Base” section.
+6. Include the full five-grinder table required by Workflow B, recalculated for the adapted recipe rather than copied blindly from the base recipe.
+7. Verify the selected flavor intent appears in the Overview and is reflected in the Flavor Profile and Adjusting for Your Taste guidance.
+8. Set expectations honestly when a bean cannot reproduce the same style as another.
+9. Save only if a destination is configured or requested; otherwise return the adapted recipe inline.
 
 Pitfalls:
 - Do not blindly copy numbers from one bean to another.

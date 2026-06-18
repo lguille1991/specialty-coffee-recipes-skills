@@ -25,6 +25,14 @@ REQUIRED_GRINDERS = [
     "Timemore C2",
 ]
 
+REQUIRED_FLAVOR_INTENTS = [
+    "clarity",
+    "balanced",
+    "sweetness",
+    "body",
+    "forgiveness",
+]
+
 RECIPE_INTENT_RE = re.compile(
     r"\b(recipe|brew|brewing|dial[- ]?in|grind setting|grinder setting|"
     r"v60|chemex|kalita|aeropress|french press|origami|orea|moka|siphon|"
@@ -180,6 +188,34 @@ def grinder_table_errors(markdown):
     return errors
 
 
+def flavor_intent_errors(markdown):
+    overview = section_body(markdown, "Overview")
+    if not overview:
+        return ["Overview section is missing or empty, so flavor intent could not be validated."]
+
+    match = re.search(
+        r"^\s*-?\s*\*\*Flavor Intent:\*\*\s*(?P<intent>[^\n]+)$",
+        overview,
+        re.IGNORECASE | re.MULTILINE,
+    )
+    if not match:
+        return [
+            "Overview must include a Flavor Intent field using one of: "
+            + ", ".join(REQUIRED_FLAVOR_INTENTS)
+            + "."
+        ]
+
+    intent = match.group("intent").strip().lower().rstrip(".")
+    if intent not in REQUIRED_FLAVOR_INTENTS:
+        return [
+            "Flavor Intent must be one of: "
+            + ", ".join(REQUIRED_FLAVOR_INTENTS)
+            + f"; found {match.group('intent').strip()}."
+        ]
+
+    return []
+
+
 def template_errors(markdown):
     errors = []
     positions = {section: heading_index(markdown, section) for section in REQUIRED_SECTIONS}
@@ -200,6 +236,7 @@ def template_errors(markdown):
         errors.append("Troubleshooting Guide must include the standard troubleshooting table.")
 
     errors.extend(grinder_table_errors(markdown))
+    errors.extend(flavor_intent_errors(markdown))
     return errors
 
 
@@ -233,6 +270,8 @@ def main():
         + "\n".join(f"- {error}" for error in errors)
         + "\n\nReturn the complete corrected recipe, not a summary. Include the exact five grinder rows: "
         + ", ".join(REQUIRED_GRINDERS)
+        + ". Include a valid Flavor Intent in the Overview: "
+        + ", ".join(REQUIRED_FLAVOR_INTENTS)
         + "."
     )
     emit({"decision": "block", "reason": reason})

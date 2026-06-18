@@ -32,8 +32,9 @@ For recipe generation, collect these required inputs:
 - Coffee dose in grams
 - Coffee origin
 - Processing method, such as washed, natural, or honey
+- Flavor intent: clarity, balanced, sweetness, body, or forgiveness
 
-Optional inputs improve accuracy: roast level, variety, elevation, flavor goals, strength preference, available brewer, and grinder model.
+Optional inputs improve accuracy: roast level, variety, elevation, strength preference, available brewer, and grinder model.
 
 Every generated or adapted recipe must include a grinder table with these five rows: `1Zpresso K-Ultra`, `1Zpresso Q Air`, `Baratza Encore ESP`, `Fellow Opus`, and `Timemore C2`. Use `references/grinder-settings.md` and `references/grind-determinants.md` instead of estimating from generic grind labels.
 
