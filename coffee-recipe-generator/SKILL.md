@@ -81,7 +81,7 @@ Pitfalls:
    - Adjusting for Your Taste
 9. Before returning the recipe, verify the Overview contains a grinder table with exactly these five rows: 1Zpresso K-Ultra, 1Zpresso Q Air, Baratza Encore ESP, Fellow Opus, Timemore C2.
 10. Offer pairing context when useful by consulting `references/brew-method-pairings.md` or `references/equipment-profiles.md`.
-11. If the user explicitly wants 4:6, load `references/4-6-method.md`.
+11. If the user explicitly wants 4:6, load `references/four-six-method.md`.
 12. Remind the user this is a starting recipe and offer to refine after brewing.
 
 Pitfalls:
@@ -144,7 +144,7 @@ Pitfalls:
 | `references/equipment-profiles.md` | B-9 | Personal brewer design notes and pairings |
 | `references/troubleshooting.md` | B-8 / standalone | Taste diagnosis and fixes |
 | `references/pour-patterns.md` | B-7 | Pour pattern descriptions and speed reference |
-| `references/4-6-method.md` | B-10 | Tetsu Kasuya competition technique |
+| `references/four-six-method.md` | B-10 | Tetsu Kasuya 4:6 Method; filename spells out leading numeral by convention |
 | `references/coffee-research-sources.md` | C-2 | Primary-source domains and HCG workflow |
 | `references/grind-size-extraction-yield.md` | C / standalone | Condensed research: grind size vs extraction yield |
 | `references/orea-v4-research.md` | C / standalone | Canonical Orea V4 bottoms, filters, and competition recipes |
