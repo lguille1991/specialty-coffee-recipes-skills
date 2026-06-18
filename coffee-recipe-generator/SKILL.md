@@ -5,6 +5,15 @@ metadata:
   version: "1.0.0"
   author: Portable Skill Template
   tags: Coffee, Brewing, Barista, Research, Portable
+  recipe_generation_parameters:
+    - name: brew_method
+      label: Brewing method
+      required: true
+      prompt: "What brewing method do you want to use?"
+    - name: coffee_dose_grams
+      label: Coffee dose in grams
+      required: true
+      prompt: "How many grams of coffee will you be using for this recipe?"
 ---
 
 # Specialty Coffee Core
@@ -65,7 +74,7 @@ Pitfalls:
 ## Workflow B: Recipe Generation
 
 1. Check for an existing bean profile using this source order: current conversation inputs → attached file/note → configured profile store (if any). If none exist, ask for missing bean details.
-2. Gather inputs: brew method, dose, origin, and processing method. Origin and processing method are non-negotiable. Do not require a grinder model before generating a recipe, because grinder settings are always produced for the full grinder set below.
+2. Gather required recipe inputs before generating: brew method, coffee dose in grams, origin, and processing method. If brew method is missing, ask: “What brewing method do you want to use?” If coffee dose is missing, ask: “How many grams of coffee will you be using for this recipe?” If both are missing, ask for both in the same message. Do not assume or default the brew method or coffee dose. Origin and processing method are non-negotiable. Do not require a grinder model before generating a recipe, because grinder settings are always produced for the full grinder set below.
 3. Load `references/brew-method-defaults.md` for the method base.
 4. Load `references/grind-determinants.md` and `references/grinder-settings.md`. Apply the five-determinant stack: method base → processing → origin/altitude → roast → variety.
 5. Always include exact settings for every grinder in `references/grinder-settings.md` in one markdown table: 1Zpresso K-Ultra, 1Zpresso Q Air, Baratza Encore ESP, Fellow Opus, and Timemore C2. This is required even when the user mentions only one grinder, does not specify a grinder, or asks for a quick recipe.
@@ -87,6 +96,7 @@ Pitfalls:
 Pitfalls:
 - Never omit any of the five grinder rows from generated or adapted recipes.
 - Never rely on generic grind descriptions alone; generic descriptors may appear only as a secondary label after the exact grinder table.
+- Never assume a default brew method or coffee dose; ask the user when either is missing from the initial prompt.
 - Never fail recipe generation just because no profile store exists.
 
 ---
