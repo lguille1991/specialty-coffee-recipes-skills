@@ -28,11 +28,12 @@ Load `coffee-recipe-generator` when the user asks for coffee bag analysis, recip
 
 For recipe generation, collect these required inputs:
 
-- Brew method, such as V60, AeroPress, Orea, Chemex, French Press, or 4:6
+- Brew method, such as V60, AeroPress, Orea, Chemex, or French Press
 - Coffee dose in grams
 - Coffee origin
 - Processing method, such as washed, natural, or honey
 - Flavor intent: clarity, balanced, sweetness, body, or forgiveness
+- For V60 only, recipe style: classic or Tetsu Kasuya's 4:6 method
 
 Optional inputs improve accuracy: roast level, variety, elevation, strength preference, available brewer, and grinder model.
 

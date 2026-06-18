@@ -5,6 +5,7 @@ Use this as the scaffold for every generated recipe. Fill in all placeholders wi
 ## Placeholder Legend
 
 - `{{BREW_METHOD}}` — User's chosen brew method
+- `{{RECIPE_STYLE}}` — For V60 only: Classic V60 or Tetsu Kasuya 4:6 Method
 - `{{COFFEE_ORIGIN}}` — Country/Region
 - `{{PROCESSING}}` — Washed / Natural / Honey
 - `{{VARIETY}}` — If known
@@ -33,6 +34,7 @@ Use this as the scaffold for every generated recipe. Fill in all placeholders wi
 - **Variety:** Heirloom
 - **Roast Level:** Light
 - **Flavor Intent:** Clarity
+- **Recipe Style:** Classic V60
 
 ## Overview
 - **Coffee:** 15g
@@ -41,6 +43,7 @@ Use this as the scaffold for every generated recipe. Fill in all placeholders wi
 - **Expected Yield:** ~240ml
 - **Expected Brew Time:** 2:45 - 3:15
 - **Flavor Intent:** Clarity
+- **Recipe Style:** Classic V60
 - **Grind:** Medium-fine
 
 | Grinder | Setting |
@@ -122,6 +125,7 @@ A fruit-forward cup with intense blueberry and stone fruit notes, tuned for clar
 3. **Brew time:** Use `references/brew-method-defaults.md` as the base, then adjust for processing.
 4. **Steps:** Simplify to 3-4 key steps for beginners; add nuance for experts.
 5. **Flavor intent:** The recipe must state one selected intent in the Overview: clarity, balanced, sweetness, body, or forgiveness. Reflect that intent in the Flavor Profile and Adjusting for Your Taste section.
-6. **Troubleshooting:** Include the full table in every recipe.
-7. **Grinder callout:** **MANDATORY.** Always include a markdown table with exact settings for all five grinders in `references/grinder-settings.md`: 1Zpresso K-Ultra, 1Zpresso Q Air, Baratza Encore ESP, Fellow Opus, and Timemore C2. Reference `references/grinder-settings.md` for base ranges, then apply the five-determinant adjustments. Never use generic descriptions alone.
-8. **Preflight check:** Before finalizing a recipe, confirm the grinder table has exactly five rows and none of the five grinder names are missing. If a method is unsupported by a grinder, keep the row and write `Not supported` plus the closest practical alternative when available.
+6. **V60 recipe style:** Every V60 recipe must state the selected style in the Overview: `Classic V60` or `Tetsu Kasuya 4:6 Method`. Do not generate V60 steps until the style has been resolved. For 4:6, use `references/four-six-method.md` for the timeline, scaled pour math, flavor-intent split, drain-timed pacing, and drawdown troubleshooting.
+7. **Troubleshooting:** Include the full table in every recipe.
+8. **Grinder callout:** **MANDATORY.** Always include a markdown table with exact settings for all five grinders in `references/grinder-settings.md`: 1Zpresso K-Ultra, 1Zpresso Q Air, Baratza Encore ESP, Fellow Opus, and Timemore C2. Reference `references/grinder-settings.md` for base ranges, then apply the five-determinant adjustments. Never use generic descriptions alone.
+9. **Preflight check:** Before finalizing a recipe, confirm the grinder table has exactly five rows and none of the five grinder names are missing. If a method is unsupported by a grinder, keep the row and write `Not supported` plus the closest practical alternative when available.
