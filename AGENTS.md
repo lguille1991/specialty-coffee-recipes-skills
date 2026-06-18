@@ -22,7 +22,7 @@ If you add tooling later, document the exact commands here and in `README.md`.
 
 ## Coding Style & Naming Conventions
 
-Prefer concise Markdown with clear headings and short paragraphs. Match the existing style in `SKILL.md`: imperative instructions, explicit constraints, and ordered workflows. Use lowercase kebab-case for new reference filenames such as `water-quality.md`. Keep templates descriptive and task-oriented, for example `espresso-output.md`.
+Prefer concise Markdown with clear headings and short paragraphs. Match the existing style in `SKILL.md`: imperative instructions, explicit constraints, and ordered workflows. Use lowercase kebab-case for new reference and template filenames, such as `water-quality.md`. Avoid filenames that begin with digits; spell out leading numeric concepts, for example `four-six-method.md`. Keep templates descriptive and task-oriented, for example `espresso-output.md`.
 
 ## Testing Guidelines
 

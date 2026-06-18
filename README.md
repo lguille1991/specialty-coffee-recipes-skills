@@ -18,6 +18,8 @@ The skill is storage-optional. It can read and write profiles or recipes if a ho
 - `coffee-recipe-generator/SKILL.md`: primary workflow rules and required behavior
 - `coffee-recipe-generator/templates/`: Markdown scaffolds for profiles and recipes
 - `coffee-recipe-generator/references/`: brewing defaults, grinder ranges, origin guidance, troubleshooting, equipment notes, and research sources
+- `coffee-recipe-generator/scripts/`: reusable validation scripts for skill outputs
+- `.codex/hooks.json`: Codex hook wiring for repository-local validation
 - `AGENTS.md`: contributor guidance for maintaining this repository
 
 ## How to Use It
@@ -48,6 +50,8 @@ Recipes should follow `templates/recipe-output.md` and include:
 - Adjusting for Your Taste
 
 Coffee profiles should follow `templates/coffee-profile.md`. If no storage destination is configured, return the finished profile or recipe inline as Markdown.
+
+When this repository's Codex hooks are trusted, the `Stop` hook runs `coffee-recipe-generator/scripts/validate-recipe-output.py` to request a correction pass if a generated recipe omits required sections or any of the five grinder rows.
 
 ## Troubleshooting
 

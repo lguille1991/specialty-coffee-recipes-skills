@@ -1,0 +1,243 @@
+#!/usr/bin/env python3
+"""Stop-hook validator for generated coffee recipes."""
+
+import json
+import re
+import sys
+from pathlib import Path
+
+
+REQUIRED_SECTIONS = [
+    "Coffee Details",
+    "Overview",
+    "Flavor Profile",
+    "Brew Timeline",
+    "Brewing Steps",
+    "Troubleshooting Guide",
+    "Adjusting for Your Taste",
+]
+
+REQUIRED_GRINDERS = [
+    "1Zpresso K-Ultra",
+    "1Zpresso Q Air",
+    "Baratza Encore ESP",
+    "Fellow Opus",
+    "Timemore C2",
+]
+
+RECIPE_INTENT_RE = re.compile(
+    r"\b(recipe|brew|brewing|dial[- ]?in|grind setting|grinder setting|"
+    r"v60|chemex|kalita|aeropress|french press|origami|orea|moka|siphon|"
+    r"coffee dose|processing method|washed|natural|honey process)\b",
+    re.IGNORECASE,
+)
+
+RECIPE_OUTPUT_MARKERS = [
+    "## Coffee Details",
+    "## Overview",
+    "## Brew Timeline",
+    "## Brewing Steps",
+    "| Grinder |",
+]
+
+
+def emit(payload):
+    print(json.dumps(payload))
+
+
+def stringify(value):
+    if value is None:
+        return ""
+    if isinstance(value, str):
+        return value
+    if isinstance(value, list):
+        return "\n".join(stringify(item) for item in value)
+    if isinstance(value, dict):
+        for key in ("text", "content", "message", "prompt"):
+            text = stringify(value.get(key))
+            if text:
+                return text
+    return ""
+
+
+def collect_user_text(node):
+    texts = []
+    if isinstance(node, dict):
+        role = str(node.get("role") or node.get("author") or "").lower()
+        kind = str(node.get("type") or node.get("item_type") or "").lower()
+        if role == "user" or "user" in kind:
+            text = stringify(
+                node.get("content")
+                or node.get("message")
+                or node.get("prompt")
+                or node.get("text")
+            )
+            if text:
+                texts.append(text)
+        for value in node.values():
+            texts.extend(collect_user_text(value))
+    elif isinstance(node, list):
+        for item in node:
+            texts.extend(collect_user_text(item))
+    return texts
+
+
+def last_user_message(transcript_path):
+    if not transcript_path:
+        return ""
+
+    path = Path(transcript_path)
+    if not path.is_file():
+        return ""
+
+    users = []
+    try:
+        with path.open("r", encoding="utf-8") as transcript:
+            for line in transcript:
+                try:
+                    users.extend(collect_user_text(json.loads(line)))
+                except json.JSONDecodeError:
+                    continue
+    except OSError:
+        return ""
+
+    return users[-1] if users else ""
+
+
+def is_recipe_turn(user_text, assistant_text):
+    if RECIPE_INTENT_RE.search(user_text or ""):
+        return True
+    marker_count = sum(1 for marker in RECIPE_OUTPUT_MARKERS if marker in assistant_text)
+    return marker_count >= 2 or bool(
+        re.search(r"^# .*\bRecipe\b", assistant_text, re.IGNORECASE | re.MULTILINE)
+    )
+
+
+def heading_index(markdown, heading):
+    match = re.search(rf"^##\s+{re.escape(heading)}\s*$", markdown, re.MULTILINE)
+    return match.start() if match else -1
+
+
+def section_body(markdown, heading):
+    match = re.search(
+        rf"^##\s+{re.escape(heading)}\s*$\n(?P<body>.*?)(?=^##\s+|\Z)",
+        markdown,
+        re.MULTILINE | re.DOTALL,
+    )
+    return match.group("body") if match else ""
+
+
+def is_separator_row(row):
+    cells = [cell.strip() for cell in row.strip().strip("|").split("|")]
+    return bool(cells) and all(re.fullmatch(r":?-{3,}:?", cell or "") for cell in cells)
+
+
+def table_blocks(markdown):
+    blocks = []
+    current = []
+    for line in markdown.splitlines():
+        if line.lstrip().startswith("|") and line.rstrip().endswith("|"):
+            current.append(line)
+        elif current:
+            blocks.append(current)
+            current = []
+    if current:
+        blocks.append(current)
+    return blocks
+
+
+def grinder_table_errors(markdown):
+    overview = section_body(markdown, "Overview")
+    if not overview:
+        return ["Overview section is missing or empty, so the grinder table could not be validated."]
+
+    grinder_table = None
+    for block in table_blocks(overview):
+        header = block[0].lower()
+        if "grinder" in header and "setting" in header:
+            grinder_table = block
+            break
+
+    if grinder_table is None:
+        return ["Overview must contain a markdown grinder table with Grinder and Setting columns."]
+
+    data_rows = [row for row in grinder_table[1:] if not is_separator_row(row)]
+    errors = []
+    if len(data_rows) != len(REQUIRED_GRINDERS):
+        errors.append(f"Grinder table must have exactly 5 data rows; found {len(data_rows)}.")
+
+    row_text = "\n".join(data_rows)
+    for grinder in REQUIRED_GRINDERS:
+        pattern = re.compile(rf"^\|\s*{re.escape(grinder)}\s*\|.+\|$", re.MULTILINE)
+        if not pattern.search(row_text):
+            errors.append(f"Missing grinder row: {grinder}.")
+
+    names = [row.strip().strip("|").split("|")[0].strip() for row in data_rows if "|" in row]
+    extra = [name for name in names if name not in REQUIRED_GRINDERS]
+    if extra:
+        errors.append("Unexpected grinder row(s): " + ", ".join(extra) + ".")
+
+    return errors
+
+
+def template_errors(markdown):
+    errors = []
+    positions = {section: heading_index(markdown, section) for section in REQUIRED_SECTIONS}
+    missing = [section for section, index in positions.items() if index < 0]
+    if missing:
+        errors.append("Missing required section(s): " + ", ".join(missing) + ".")
+
+    present = [positions[section] for section in REQUIRED_SECTIONS if positions[section] >= 0]
+    if present != sorted(present):
+        errors.append("Required sections must appear in the recipe-output.md order.")
+
+    timeline = section_body(markdown, "Brew Timeline")
+    if timeline and "| Time |" not in timeline:
+        errors.append("Brew Timeline must include a markdown table with a Time column.")
+
+    troubleshooting = section_body(markdown, "Troubleshooting Guide")
+    if troubleshooting and "If your coffee tastes" not in troubleshooting:
+        errors.append("Troubleshooting Guide must include the standard troubleshooting table.")
+
+    errors.extend(grinder_table_errors(markdown))
+    return errors
+
+
+def main():
+    try:
+        hook_input = json.load(sys.stdin)
+    except json.JSONDecodeError:
+        emit({"continue": True})
+        return 0
+
+    if hook_input.get("hook_event_name") != "Stop" or hook_input.get("stop_hook_active"):
+        emit({"continue": True})
+        return 0
+
+    assistant_text = hook_input.get("last_assistant_message") or ""
+    user_text = last_user_message(hook_input.get("transcript_path"))
+
+    if not assistant_text.strip() or not is_recipe_turn(user_text, assistant_text):
+        emit({"continue": True})
+        return 0
+
+    errors = template_errors(assistant_text)
+    if not errors:
+        emit({"continue": True})
+        return 0
+
+    reason = (
+        "The generated coffee recipe does not follow "
+        "coffee-recipe-generator/templates/recipe-output.md. "
+        "Revise the recipe before stopping. Fix these issues:\n"
+        + "\n".join(f"- {error}" for error in errors)
+        + "\n\nReturn the complete corrected recipe, not a summary. Include the exact five grinder rows: "
+        + ", ".join(REQUIRED_GRINDERS)
+        + "."
+    )
+    emit({"decision": "block", "reason": reason})
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
