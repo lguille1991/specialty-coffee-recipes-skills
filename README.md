@@ -1,1 +1,66 @@
 # specialty-coffee-recipes-skills
+
+A portable skill package for specialty coffee workflows. The main skill, `coffee-recipe-generator`, helps an agent analyze coffee bag details, generate brewing recipes, adapt recipes across beans or brewers, and research brewing techniques from primary sources.
+
+## How the Skill Works
+
+The skill lives in `coffee-recipe-generator/SKILL.md`. It defines four workflows:
+
+- **Bag Analysis:** extracts details from a coffee bag image and formats them with `templates/coffee-profile.md`.
+- **Recipe Generation:** builds a brew recipe from method, dose, origin, and processing method.
+- **Recipe Adaptation:** adjusts an existing recipe for a different bean, brewer, filter, or flavor goal.
+- **Primary-Source Research:** summarizes brewing science, equipment guidance, or competition techniques with exact source URLs.
+
+The skill is storage-optional. It can read and write profiles or recipes if a host system provides storage, but it must also work from inline chat inputs and return Markdown directly.
+
+## Repository Layout
+
+- `coffee-recipe-generator/SKILL.md`: primary workflow rules and required behavior
+- `coffee-recipe-generator/templates/`: Markdown scaffolds for profiles and recipes
+- `coffee-recipe-generator/references/`: brewing defaults, grinder ranges, origin guidance, troubleshooting, equipment notes, and research sources
+- `AGENTS.md`: contributor guidance for maintaining this repository
+
+## How to Use It
+
+Load `coffee-recipe-generator` when the user asks for coffee bag analysis, recipe generation, recipe tuning, recipe adaptation, or brewing research.
+
+For recipe generation, collect these required inputs:
+
+- Brew method, such as V60, AeroPress, Orea, Chemex, French Press, or 4:6
+- Coffee dose in grams
+- Coffee origin
+- Processing method, such as washed, natural, or honey
+
+Optional inputs improve accuracy: roast level, variety, elevation, flavor goals, strength preference, available brewer, and grinder model.
+
+Every generated or adapted recipe must include a grinder table with these five rows: `1Zpresso K-Ultra`, `1Zpresso Q Air`, `Baratza Encore ESP`, `Fellow Opus`, and `Timemore C2`. Use `references/grinder-settings.md` and `references/grind-determinants.md` instead of estimating from generic grind labels.
+
+## Output Expectations
+
+Recipes should follow `templates/recipe-output.md` and include:
+
+- Coffee Details
+- Overview
+- Flavor Profile
+- Brew Timeline
+- Brewing Steps
+- Troubleshooting Guide
+- Adjusting for Your Taste
+
+Coffee profiles should follow `templates/coffee-profile.md`. If no storage destination is configured, return the finished profile or recipe inline as Markdown.
+
+## Troubleshooting
+
+Use `references/troubleshooting.md` when adjusting a recipe after tasting.
+
+- Sour or under-extracted: grind 1-2 clicks finer, raise temperature 1-2 C, or pour more slowly.
+- Bitter or over-extracted: grind 1-2 clicks coarser, lower temperature 1-2 C, or pour faster.
+- Weak or watery: grind finer, use more coffee, or slow the first pour.
+- Too strong: grind coarser, use less coffee, or dilute after brewing.
+- Muddy or cloudy: reduce agitation, pour more gently, or allow the bed to settle.
+
+If a coffee bag image is unreadable, ask for a clearer photo rather than guessing missing fields. If origin or processing method is missing for recipe generation, ask for it before generating the recipe.
+
+## Maintenance Notes
+
+Keep references and templates plain Markdown so they can work in chat, local files, Obsidian, Notion, and GitHub. When adding a new brewing rule, update the relevant file in `references/` and ensure `SKILL.md` points to it if the workflow depends on it.
