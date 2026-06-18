@@ -14,6 +14,14 @@ metadata:
       label: Coffee dose in grams
       required: true
       prompt: "How many grams of coffee will you be using for this recipe?"
+    - name: flavor_intent
+      label: Flavor intent
+      required: true
+      prompt: "What flavor direction do you want: clarity, balanced, sweetness, body, or forgiveness?"
+    - name: v60_recipe_style
+      label: V60 recipe style
+      required: when brew_method is V60
+      prompt: "For V60, do you want a classic recipe or Tetsu Kasuya's 4:6 method?"
 ---
 
 # Specialty Coffee Core
@@ -48,11 +56,11 @@ Load this skill when the user:
 | Workflow | Required Inputs |
 |----------|----------------|
 | Bag Analysis | Image of the coffee bag/label |
-| Recipe Generation | Brew method, coffee dose (g), origin, processing method |
-| Recipe Adaptation | Base recipe, target bean profile OR target brewer/equipment version, desired flavor outcome |
+| Recipe Generation | Brew method, coffee dose (g), origin, processing method, flavor intent: clarity, balanced, sweetness, body, or forgiveness; for V60 only, recipe style: classic or 4:6 |
+| Recipe Adaptation | Base recipe, target bean profile OR target brewer/equipment version, flavor intent: clarity, balanced, sweetness, body, or forgiveness |
 | Research | Topic or question |
 
-Optional adjustments: roast level, strength preference, flavor goals, equipment available.
+Optional adjustments: roast level, strength preference, equipment available.
 
 ---
 
@@ -74,12 +82,12 @@ Pitfalls:
 ## Workflow B: Recipe Generation
 
 1. Check for an existing bean profile using this source order: current conversation inputs → attached file/note → configured profile store (if any). If none exist, ask for missing bean details.
-2. Gather required recipe inputs before generating: brew method, coffee dose in grams, origin, and processing method. If brew method is missing, ask: “What brewing method do you want to use?” If coffee dose is missing, ask: “How many grams of coffee will you be using for this recipe?” If both are missing, ask for both in the same message. Do not assume or default the brew method or coffee dose. Origin and processing method are non-negotiable. Do not require a grinder model before generating a recipe, because grinder settings are always produced for the full grinder set below.
-3. Load `references/brew-method-defaults.md` for the method base.
+2. Gather required recipe inputs before generating: brew method, coffee dose in grams, origin, processing method, and flavor intent. Flavor intent must be one of: clarity, balanced, sweetness, body, or forgiveness. If brew method is missing, ask: “What brewing method do you want to use?” If coffee dose is missing, ask: “How many grams of coffee will you be using for this recipe?” If flavor intent is missing, ask: “What flavor direction do you want: clarity, balanced, sweetness, body, or forgiveness?” If the brew method is V60 or Hario V60 and the recipe style is missing, ask: “For V60, do you want a classic recipe or Tetsu Kasuya's 4:6 method?” If multiple required inputs are missing, ask for them in the same message. Do not assume or default the brew method, coffee dose, flavor intent, or V60 recipe style. Origin and processing method are non-negotiable. Do not require a grinder model before generating a recipe, because grinder settings are always produced for the full grinder set below.
+3. Load `references/brew-method-defaults.md` for the method base. For V60 with classic recipe style, use the V60 base from that file. For V60 with 4:6 recipe style, also load `references/four-six-method.md` and use its ratio, coarse-grind bias, drain-timed pours, roast-level temperature guidance, and 3:30-4:00 maximum brew-time guardrail unless bean-specific origin, process, or roast guidance requires a small adjustment.
 4. Load `references/grind-determinants.md` and `references/grinder-settings.md`. Apply the five-determinant stack: method base → processing → origin/altitude → roast → variety.
 5. Always include exact settings for every grinder in `references/grinder-settings.md` in one markdown table: 1Zpresso K-Ultra, 1Zpresso Q Air, Baratza Encore ESP, Fellow Opus, and Timemore C2. This is required even when the user mentions only one grinder, does not specify a grinder, or asks for a quick recipe.
 6. Load `references/origin-processing-guide.md` and adjust temperature for origin, process, and roast.
-7. Fill `templates/recipe-output.md`.
+7. Fill `templates/recipe-output.md`. For V60 recipes, state the selected recipe style in the Overview as either `Classic V60` or `Tetsu Kasuya 4:6 Method`.
 8. Mandatory output sections, in this order:
    - Coffee Details
    - Overview
@@ -89,14 +97,22 @@ Pitfalls:
    - Troubleshooting Guide
    - Adjusting for Your Taste
 9. Before returning the recipe, verify the Overview contains a grinder table with exactly these five rows: 1Zpresso K-Ultra, 1Zpresso Q Air, Baratza Encore ESP, Fellow Opus, Timemore C2.
-10. Offer pairing context when useful by consulting `references/brew-method-pairings.md` or `references/equipment-profiles.md`.
-11. If the user explicitly wants 4:6, load `references/four-six-method.md`.
-12. Remind the user this is a starting recipe and offer to refine after brewing.
+10. Verify the selected flavor intent appears in the Overview and is reflected in the Flavor Profile and Adjusting for Your Taste guidance.
+11. Offer pairing context when useful by consulting `references/brew-method-pairings.md` or `references/equipment-profiles.md`.
+12. For V60 with 4:6 recipe style, build the Brew Timeline and Brewing Steps from `references/four-six-method.md`:
+    - Scale water proportionally from the user's coffee dose using a 1:15 ratio unless the user requested a different strength.
+    - Split total water into first 40% and final 60%.
+    - Use the user's flavor intent to tune the first two pours: sweetness = smaller first pour/larger second pour, clarity = larger first pour/smaller second pour, balanced/body/forgiveness = equal first and second pours unless the bean profile strongly suggests otherwise.
+    - Use the user's strength preference if supplied to tune the final 60%: refreshing/lighter = 2 pours, balanced/default = 3 pours, rich/strong/body = 3 pours with a slightly finer/coarser grind decision based on drawdown target rather than adding extra water. If no strength preference is supplied, use 3 pours.
+    - Emphasize the method's rule that each next pour starts only when the slurry has almost completely drained; clock times are references, not fixed commands.
+    - Include troubleshooting for drain timing: under 3:00 means grind finer; over 3:30-4:00 means grind coarser.
+13. Remind the user this is a starting recipe and offer to refine after brewing.
 
 Pitfalls:
 - Never omit any of the five grinder rows from generated or adapted recipes.
 - Never rely on generic grind descriptions alone; generic descriptors may appear only as a secondary label after the exact grinder table.
-- Never assume a default brew method or coffee dose; ask the user when either is missing from the initial prompt.
+- Never assume a default brew method, coffee dose, flavor intent, or V60 recipe style; ask the user when any are missing from the initial prompt.
+- Never generate a V60 recipe without first resolving whether it should be classic or 4:6.
 - Never fail recipe generation just because no profile store exists.
 
 ---
@@ -125,15 +141,17 @@ Pitfalls:
 ## Workflow D: Recipe Adaptation
 
 1. Read the base recipe and any available bean profile.
-2. Identify what changed:
+2. Gather the required flavor intent before adapting. Flavor intent must be one of: clarity, balanced, sweetness, body, or forgiveness. If missing, ask: “What flavor direction should the adapted recipe target: clarity, balanced, sweetness, body, or forgiveness?”
+3. Identify what changed:
    - bean swap
    - brewer swap
    - attachment/filter swap
-3. Apply adaptation rules from `references/brewer-version-adaptation.md`.
-4. Rebuild the recipe using `templates/recipe-output.md` and include a clear “Changes from Base” section.
-5. Include the full five-grinder table required by Workflow B, recalculated for the adapted recipe rather than copied blindly from the base recipe.
-6. Set expectations honestly when a bean cannot reproduce the same style as another.
-7. Save only if a destination is configured or requested; otherwise return the adapted recipe inline.
+4. Apply adaptation rules from `references/brewer-version-adaptation.md`.
+5. Rebuild the recipe using `templates/recipe-output.md` and include a clear “Changes from Base” section.
+6. Include the full five-grinder table required by Workflow B, recalculated for the adapted recipe rather than copied blindly from the base recipe.
+7. Verify the selected flavor intent appears in the Overview and is reflected in the Flavor Profile and Adjusting for Your Taste guidance.
+8. Set expectations honestly when a bean cannot reproduce the same style as another.
+9. Save only if a destination is configured or requested; otherwise return the adapted recipe inline.
 
 Pitfalls:
 - Do not blindly copy numbers from one bean to another.
@@ -150,11 +168,11 @@ Pitfalls:
 | `references/grind-determinants.md` | B-4 | Five-determinant grind calculation |
 | `references/grinder-settings.md` | B-4 | Exact grinder settings for K-Ultra, Q Air, Encore ESP, Fellow Opus, Timemore C2 |
 | `references/origin-processing-guide.md` | B-6 | Origin, variety, and roast temp guidance |
-| `references/brew-method-pairings.md` | B-9 | Matching coffee profile to brew method |
-| `references/equipment-profiles.md` | B-9 | Personal brewer design notes and pairings |
+| `references/brew-method-pairings.md` | B-11 | Matching coffee profile to brew method |
+| `references/equipment-profiles.md` | B-11 | Personal brewer design notes and pairings |
 | `references/troubleshooting.md` | B-8 / standalone | Taste diagnosis and fixes |
 | `references/pour-patterns.md` | B-7 | Pour pattern descriptions and speed reference |
-| `references/four-six-method.md` | B-10 | Tetsu Kasuya 4:6 Method; filename spells out leading numeral by convention |
+| `references/four-six-method.md` | B-3 / B-12 | Tetsu Kasuya 4:6 Method; filename spells out leading numeral by convention |
 | `references/coffee-research-sources.md` | C-2 | Primary-source domains and HCG workflow |
 | `references/grind-size-extraction-yield.md` | C / standalone | Condensed research: grind size vs extraction yield |
 | `references/orea-v4-research.md` | C / standalone | Canonical Orea V4 bottoms, filters, and competition recipes |

@@ -2,7 +2,7 @@
 
 This section maps your personal brewing gear to the coffee profiles they excel with, based on each device's design characteristics and extraction behavior.
 
-> **Sources:** Perfect Daily Grind articles on [hybrid brewers](https://perfectdailygrind.com/2026/03/hybrid-coffee-brewers-making-comeback/) (Mar 2026), [brewer competition trends](https://perfectdailygrind.com/2026/02/new-coffee-brewers-extraction-tools-baristas/) (Feb 2026), [Origami pour-over](https://perfectdailygrind.com/2024/01/how-to-brew-coffee-with-origami-pour-over/) (Jan 2024), [pour-over evolution](https://perfectdailygrind.com/2024/06/ongoing-evolution-of-pour-over-coffee-next-trends/) (Jun 2024); [Ceado Hoop official product page](https://www.ceado.com/en/products/pour-over-coffee-brewer/).
+> **Sources:** Perfect Daily Grind articles on [hybrid brewers](https://perfectdailygrind.com/2026/03/hybrid-coffee-brewers-making-comeback/) (Mar 2026), [brewer competition trends](https://perfectdailygrind.com/2026/02/new-coffee-brewers-extraction-tools-baristas/) (Feb 2026), [Origami pour-over](https://perfectdailygrind.com/2024/01/how-to-brew-coffee-with-origami-pour-over/) (Jan 2024), [pour-over evolution](https://perfectdailygrind.com/2024/06/ongoing-evolution-of-pour-over-coffee-next-trends/) (Jun 2024); [Ceado Hoop official product page](https://www.ceado.com/en/products/pour-over-coffee-brewer/); [Kalita USA Mino 185](https://kalitausa.com/products/kalita-mino-ceramic-dripper-185-sand-black), [Kurasu Kalita Mino-yaki Dripper](https://kurasu.kyoto/products/kalita-mi185-dripper), and [Coffee Chronicler Kalita Wave review](https://coffeechronicler.com/kalita-wave-dripper-experiment-review/) for Mino flow behavior.
 
 ## Your Brew Method Profiles
 
@@ -13,7 +13,7 @@ This section maps your personal brewing gear to the coffee profiles they excel w
 | **Hario Switch 03** | Immersion option adds body and sweetness; hybrid flexibility | Less suited to delicate florals than pure pour-overs | Natural/honey, Latin America, medium-dark, everyday drinking — a forgiving switch hitter |
 | **AeroPress Classic** | Versatile, portable, pressure-assisted extraction, forgiving | Less suited to showcasing delicate terroir notes | Medium-dark roast, Brazilian/Colombian, espresso-style, travel, experimentation |
 | **AeroPress XL** | Large batch, versatile, same pressure benefits as Classic | Same limitations as Classic at scale | Bigger doses, darker roasts, group brewing, experimentation with recipes |
-| **Kalita Wave Ceramic** | Forgiving, consistent, balanced, excellent for daily use | Less bright than V60; less expressive than competition brewers | Washed or honey, versatile daily driver, any roast, any origin — the reliable all-rounder |
+| **Kalita Wave Mino 185** | Fast, consistent flat-bottom flow; low stalling risk; same Kalita 185 Wave filters; balanced clarity with ceramic heat stability | Needs finer grind or more pulse pours than older Wave Ceramic; can under-extract if treated like a slow Kalita; less bright than V60 | Washed or honey, versatile daily driver, medium to light-medium roasts, 20-30g doses, any origin where balance and sweetness matter |
 | **NextLevel Pulsar** | Hybrid immersion pour-over; highlights fruit in naturals/honeys | Requires more dial-in than passive brewers | Natural, honey, anaerobic, Colombia, Ethiopia, fruity experimental lots |
 | **Ceado Hoop** | Radial infusion = even extraction; technique-simple; easy cleanup | Limited capacity (20g max); passive immersion less expressive than pour-overs | Versatile everyday brewer, natural/honey, medium roast, low-acid, beginner-friendly |
 | **Orea V4 Wide** | Competition-grade clarity, flat bed = uniform extraction, minimises channelling | Fast flow rate needs grind tuning; technique dependent | Washed delicate, anaerobic/experimental naturals, Ethiopia, Kenya, Gesha, any coffee where clarity is paramount |
@@ -80,7 +80,7 @@ This section maps your personal brewing gear to the coffee profiles they excel w
 **When you want sweetness and fruit expression:** Chemex, NextLevel Pulsar
 - Best with: natural Ethiopia/Colombia, honey process, anaerobic lots
 
-**When you want a reliable daily driver:** Kalita Wave Ceramic, Ceado Hoop
+**When you want a reliable daily driver:** Kalita Wave Mino 185, Ceado Hoop
 - Best with: washed or honey, any origin, medium roast
 
 **When you want full body and richness:** AeroPress XL (inverted/full immersion)
@@ -101,7 +101,7 @@ Understanding *why* each brewer pairs with certain profiles:
 
 **AeroPress Classic / XL** — Uses air pressure to accelerate extraction, producing a clean, concentrated cup regardless of grind size. The short brew time (1-3 min) minimises acidity extraction, making it forgiving with dark roasts and low-acid coffees. The XL handles up to ~30g doses for bigger batches.
 
-**Kalita Wave Ceramic** — Flat bottom with three small extraction holes and wave-shaped filter that minimises contact between paper and brewer walls. This reduces channelling and produces consistent, balanced results across different grind sizes and coffee types. The most forgiving pour-over in your kit — an excellent daily driver.
+**Kalita Wave Mino 185** — Your current Kalita. Flat-bottom ceramic Wave brewer that uses the same Kalita 185 Wave filters as the older ceramic 185, but with a faster-flowing bottom design. Kalita USA confirms the ceramic, flat-bottom 3-hole design and 185 Wave filter compatibility; Kurasu notes the MI/Mino holes are about 2 mm larger than standard Wave; Coffee Chronicler reports the 185 Mino Yaki has a redesigned raised bottom and larger 4 mm drain holes for faster, more consistent flow with fewer stalls. Generate Mino recipes with medium-fine grind, 3-4 pulse pours, thorough ceramic preheat, and a 2:45-3:15 target rather than old slow-Kalita timings.
 
 **NextLevel Pulsar** — A hybrid brewer combining immersion and pour-over elements. Water is poured over the bed and flows through by gravity, with the design encouraging even saturation. Particularly effective at expressing the fruit character of natural and honey processed coffees. Requires dial-in but rewards experimentation.
 

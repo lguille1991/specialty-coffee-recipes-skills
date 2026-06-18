@@ -5,10 +5,12 @@ Use this as the scaffold for every generated recipe. Fill in all placeholders wi
 ## Placeholder Legend
 
 - `{{BREW_METHOD}}` — User's chosen brew method
+- `{{RECIPE_STYLE}}` — For V60 only: Classic V60 or Tetsu Kasuya 4:6 Method
 - `{{COFFEE_ORIGIN}}` — Country/Region
 - `{{PROCESSING}}` — Washed / Natural / Honey
 - `{{VARIETY}}` — If known
 - `{{ROAST_LEVEL}}` — Light / Medium / Medium-Dark
+- `{{FLAVOR_INTENT}}` — Required user intent: clarity / balanced / sweetness / body / forgiveness
 - `{{COFFEE_DOSE}}` — Grams of coffee
 - `{{WATER_AMOUNT}}` — Total ml of water
 - `{{WATER_TEMP}}` — Degrees Celsius
@@ -31,6 +33,8 @@ Use this as the scaffold for every generated recipe. Fill in all placeholders wi
 - **Processing:** Natural (Dry Process)
 - **Variety:** Heirloom
 - **Roast Level:** Light
+- **Flavor Intent:** Clarity
+- **Recipe Style:** Classic V60
 
 ## Overview
 - **Coffee:** 15g
@@ -38,6 +42,8 @@ Use this as the scaffold for every generated recipe. Fill in all placeholders wi
 - **Ratio:** 1:17
 - **Expected Yield:** ~240ml
 - **Expected Brew Time:** 2:45 - 3:15
+- **Flavor Intent:** Clarity
+- **Recipe Style:** Classic V60
 - **Grind:** Medium-fine
 
 | Grinder | Setting |
@@ -49,7 +55,7 @@ Use this as the scaffold for every generated recipe. Fill in all placeholders wi
 | Timemore C2 | 16 – 18 clicks |
 
 ## Flavor Profile
-A fruit-forward cup with intense blueberry and stone fruit notes. The natural process enhances the coffee's wild, wine-like character. Expect a syrupy body with a clean, bright finish. Perfect for showcasing Ethiopian terroir.
+A fruit-forward cup with intense blueberry and stone fruit notes, tuned for clarity so the aromatics stay separated rather than heavy. The natural process enhances the coffee's wild, wine-like character. Expect a syrupy body with a clean, bright finish. Perfect for showcasing Ethiopian terroir.
 
 ## Brew Timeline
 | Time | Action | Total Water |
@@ -118,6 +124,8 @@ A fruit-forward cup with intense blueberry and stone fruit notes. The natural pr
 2. **Temp:** Use `references/origin-processing-guide.md` for origin and roast-level temp adjustments.
 3. **Brew time:** Use `references/brew-method-defaults.md` as the base, then adjust for processing.
 4. **Steps:** Simplify to 3-4 key steps for beginners; add nuance for experts.
-5. **Troubleshooting:** Include the full table in every recipe.
-6. **Grinder callout:** **MANDATORY.** Always include a markdown table with exact settings for all five grinders in `references/grinder-settings.md`: 1Zpresso K-Ultra, 1Zpresso Q Air, Baratza Encore ESP, Fellow Opus, and Timemore C2. Reference `references/grinder-settings.md` for base ranges, then apply the five-determinant adjustments. Never use generic descriptions alone.
-7. **Preflight check:** Before finalizing a recipe, confirm the grinder table has exactly five rows and none of the five grinder names are missing. If a method is unsupported by a grinder, keep the row and write `Not supported` plus the closest practical alternative when available.
+5. **Flavor intent:** The recipe must state one selected intent in the Overview: clarity, balanced, sweetness, body, or forgiveness. Reflect that intent in the Flavor Profile and Adjusting for Your Taste section.
+6. **V60 recipe style:** Every V60 recipe must state the selected style in the Overview: `Classic V60` or `Tetsu Kasuya 4:6 Method`. Do not generate V60 steps until the style has been resolved. For 4:6, use `references/four-six-method.md` for the timeline, scaled pour math, flavor-intent split, drain-timed pacing, and drawdown troubleshooting.
+7. **Troubleshooting:** Include the full table in every recipe.
+8. **Grinder callout:** **MANDATORY.** Always include a markdown table with exact settings for all five grinders in `references/grinder-settings.md`: 1Zpresso K-Ultra, 1Zpresso Q Air, Baratza Encore ESP, Fellow Opus, and Timemore C2. Reference `references/grinder-settings.md` for base ranges, then apply the five-determinant adjustments. Never use generic descriptions alone.
+9. **Preflight check:** Before finalizing a recipe, confirm the grinder table has exactly five rows and none of the five grinder names are missing. If a method is unsupported by a grinder, keep the row and write `Not supported` plus the closest practical alternative when available.
