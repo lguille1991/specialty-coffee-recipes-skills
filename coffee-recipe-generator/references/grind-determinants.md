@@ -26,6 +26,7 @@ This sets your foundation. Each method has a typical grind range based on its ex
 | V60 / Pour-Over | Medium-fine | Conical, fast flow, needs some resistance |
 | Siphon | Medium-fine | Full immersion + cloth filter, medium contact time |
 | Kalita / Flat-Bottom | Medium | Flat bed, three-hole drainage, balanced |
+| Kalita Wave Mino 185 | Medium-fine | Flat bed with larger, faster drain holes; needs extra grind resistance versus older Wave ceramic/steel |
 | Chemex | Medium-coarse | Thick paper filters slow drainage; coarser prevents over-extraction |
 | French Press | Coarse | Full immersion, long steep, no filter resistance |
 | Cold Brew | Extra Coarse | 12-24hr immersion, room temp, very slow extraction |

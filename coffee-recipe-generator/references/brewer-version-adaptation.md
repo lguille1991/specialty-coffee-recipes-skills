@@ -19,32 +19,40 @@ When a brewer's drain speed or restriction changes, compensation must come from 
 
 ---
 
-## Case Study 1: Kalita Wave Classic (Stainless Steel) → Kalita Wave Mino 185 (Ceramic)
+## Case Study 1: Kalita Wave Ceramic 185 / Classic Wave → Kalita Wave Mino 185
 
 ### What Changed
 
-| Feature | Classic Steel | Mino 185 |
-|---------|---------------|----------|
-| Bottom ribs | Shallow Y-shaped | Protruding circular platform |
-| Hole size | ~2 mm | ~4 mm (doubled) |
-| Flow rate | Slow, stalls often | Fast, consistent |
-| Thermal mass | Low | High (thick ceramic) |
-| Clogging risk | High on multi-pour | Very low |
-| Weight | ~160 g | ~317–365 g |
+| Feature | Older Wave ceramic / classic steel | Mino 185 |
+|---------|----------------------------------|----------|
+| Bottom support | Older ceramic ribs / shallow steel ribs | Redesigned raised circular platform |
+| Hole size | Smaller, more restrictive holes | Larger holes; Kurasu describes MI holes as 2 mm larger than standard Wave |
+| Flow rate | Moderate to slow; steel often stalls | Fast, consistent, low-stall |
+| Thermal mass | Ceramic high; steel low | High ceramic thermal mass |
+| Filter | Kalita 185 Wave | Same Kalita 185 Wave |
+| Clogging risk | Ceramic low; steel high on multi-pour | Very low |
+| Typical dose | 15-25 g | 20-30 g sweet spot, still usable lower |
 
 ### Adaptation
 
-| Parameter | Classic Steel | Mino 185 | Reason |
-|-----------|---------------|----------|--------|
-| **Grind** | Medium (coarser side) | **Medium-fine** (1–2 clicks finer) | Faster drain needs more resistance |
-| **Pours** | 2-pulse often enough | **3–4 pulses** | More pours extend contact time |
-| **Temperature** | 93–96 °C | **92 °C** | Better heat retention means less loss; cooler protects delicate notes |
-| **Total time** | 3:00–3:30 | **2:45–3:15** | Mino won't naturally stall to 3:30 |
-| **Preheat** | Rinse filter | **Rinse + warm ceramic body** | Thermal mass steals heat from first pour |
+| Parameter | Older Wave ceramic / classic steel | Mino 185 | Reason |
+|-----------|----------------------------------|----------|--------|
+| **Grind** | Medium to medium-fine | **Medium-fine**; start 1 click finer than old ceramic, 1-2 clicks finer than steel | Faster drain needs more resistance |
+| **Pours** | 2-3 pulses often enough | **3-4 pulses** | More pulses add contact time without relying on stall |
+| **Temperature** | 93-96 °C | **92-94 °C** | Ceramic heat retention and faster flow both matter; stay lower for delicate/processed coffees, hotter for dense washed lots |
+| **Total time** | 3:00-3:45 depending on model | **2:45-3:15** | Mino should not be forced to old stalled Wave timings |
+| **Preheat** | Rinse filter; ceramic benefits from warm-up | **Rinse + warm ceramic body thoroughly** | Thermal mass steals heat from the bloom if cold |
+| **Filters** | Kalita 185 Wave | **Kalita 185 Wave** | Same filter size; recipe changes are driven by dripper flow, not filter compatibility |
 
 ### Flavor Impact
-- **Steel:** Slower drain acts as built-in restrictor; more forgiving with coarse grind; can mute acidity but risks stalling.
-- **Mino:** Fast, predictable drain preserves clarity; no stalling anxiety on multi-pour recipes; ceramic stabilizes temperature for more even extraction.
+- **Older ceramic Wave:** Balanced and forgiving, but slower than the Mino; recipes may taste thin on the Mino unless grind/pulse count is adjusted.
+- **Classic steel Wave:** Slower drain acts as built-in restrictor; more forgiving with coarse grind; can mute acidity but risks stalling.
+- **Mino 185:** Fast, predictable drain preserves clarity; no stalling anxiety on multi-pour recipes; ceramic stabilizes temperature for more even extraction. If the cup is hollow, tighten grind before extending brew time.
+
+### Source Notes
+- Kalita USA: Mino 185 is ceramic, uses Kalita 185 Wave filters, has a flat-bottom 3-hole design, and recommends warming the dripper before brewing.
+- Kurasu: MI/Mino dripper keeps the Wave flat-bottom flow-control design and has holes about 2 mm larger than standard Kalita Wave for a more flavorful, aromatic cup.
+- Coffee Chronicler: 2025 Mino Yaki update uses a redesigned raised bottom and larger 4 mm drain holes, producing faster, more consistent flow and solving many previous stalling issues.
 
 ---
 
