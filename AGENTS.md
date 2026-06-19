@@ -40,6 +40,16 @@ When changing workflow rules, verify examples and required output sections remai
 
 When changing install tooling, test with `--path` against a temporary directory before touching real user skill locations. Installer scripts must remain non-destructive: do not overwrite real directories or files at skill install paths.
 
+## Versioning Guidelines
+
+Whenever `coffee-recipe-generator/SKILL.md` changes, bump `metadata.version` in its frontmatter using Semantic Versioning:
+
+- Patch, `x.y.Z`: typo fixes, wording clarifications, metadata-only changes, or non-behavioral documentation edits.
+- Minor, `x.Y.0`: new workflows, new required or optional parameters, new supported brew methods, new references/templates used by the skill, or backward-compatible behavior changes.
+- Major, `X.0.0`: breaking workflow changes, removed behavior, renamed required sections, removed supported methods, or changed required inputs that can invalidate existing usage.
+
+If a change touches both `SKILL.md` and supporting files, choose the version bump based on the user-visible behavior change in `SKILL.md`. Do not bump the skill version for changes that do not modify `SKILL.md`.
+
 ## Commit & Pull Request Guidelines
 
 Recent history mixes short descriptive commits with Conventional Commit prefixes such as `fix:`. Prefer concise, imperative subjects under 72 characters, for example `fix: tighten grinder guidance` or `docs: add origin reference`.
