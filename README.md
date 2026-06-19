@@ -19,8 +19,52 @@ The skill is storage-optional. It can read and write profiles or recipes if a ho
 - `coffee-recipe-generator/templates/`: Markdown scaffolds for profiles and recipes
 - `coffee-recipe-generator/references/`: brewing defaults, grinder ranges, origin guidance, troubleshooting, equipment notes, and research sources
 - `coffee-recipe-generator/scripts/`: reusable validation scripts for skill outputs
+- `scripts/install-skill.sh`: symlink installer for OpenCode and Claude skill locations
+- `scripts/update-skill.sh`: update helper that pulls the latest repo and reports install status
 - `.codex/hooks.json`: Codex hook wiring for repository-local validation
 - `AGENTS.md`: contributor guidance for maintaining this repository
+
+## Installation
+
+Clone the repository, then run the installer from the repository root:
+
+```bash
+git clone https://github.com/lguille1991/coffee-recipe-generator.git
+cd coffee-recipe-generator
+./scripts/install-skill.sh
+```
+
+By default, the installer links the skill into both supported locations:
+
+- OpenCode: `~/.agents/skills/coffee-recipe-generator`
+- Claude: `~/.claude/skills/coffee-recipe-generator`
+
+The installer creates symlinks instead of copying files. This keeps the active skill tied to this cloned repository, so pulling new commits updates the installed skill without another manual copy.
+
+To install only one target, run:
+
+```bash
+./scripts/install-skill.sh --target opencode
+./scripts/install-skill.sh --target claude
+```
+
+To install into a custom skills root, run:
+
+```bash
+./scripts/install-skill.sh --path /path/to/skills
+```
+
+If a real directory or file already exists at the install path, the installer stops instead of overwriting it. If an existing symlink points somewhere else, pass `--force` to replace that symlink.
+
+## Updating
+
+Run the update helper from the repository root:
+
+```bash
+./scripts/update-skill.sh
+```
+
+The updater runs `git pull --ff-only`, then reports whether the OpenCode and Claude skill locations are correctly symlinked to this repository. Because installation uses symlinks, the active skill uses the latest pulled files immediately.
 
 ## How to Use It
 

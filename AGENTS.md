@@ -2,11 +2,12 @@
 
 ## Project Structure & Module Organization
 
-This repository is a small, documentation-first skill package. The root contains [README.md](/Users/guillermoabrego/Downloads/specialty-coffee-recipes-skills/README.md) and this guide. The main deliverable lives in `coffee-recipe-generator/`:
+This repository is a small, documentation-first skill package. The root contains `README.md`, install/update helper scripts, and this guide. The main deliverable lives in `coffee-recipe-generator/`:
 
 - `SKILL.md`: the primary skill definition and workflow rules
 - `references/`: source material and operating guidance for recipe generation and research
 - `templates/`: output scaffolds such as `coffee-profile.md` and `recipe-output.md`
+- Root `scripts/`: installer and updater scripts for linking the skill into OpenCode and Claude skill locations
 
 Keep new content close to the skill it supports. For example, add brewing research under `coffee-recipe-generator/references/` and reusable output formats under `coffee-recipe-generator/templates/`.
 
@@ -17,6 +18,9 @@ No build pipeline or package manager is configured in this repository. The usefu
 - `git status`: review pending changes before editing docs or skill files
 - `find coffee-recipe-generator -maxdepth 2 -type f | sort`: inspect the current file set
 - `cat coffee-recipe-generator/SKILL.md`: review the primary workflow before making changes
+- `./scripts/install-skill.sh`: install the skill as symlinks into both OpenCode and Claude locations
+- `./scripts/update-skill.sh`: pull the latest repo and report whether standard skill locations point to this clone
+- `bash -n scripts/install-skill.sh && bash -n scripts/update-skill.sh`: validate shell syntax after editing install tooling
 
 If you add tooling later, document the exact commands here and in `README.md`.
 
@@ -33,6 +37,8 @@ There is no automated test suite today. Validate changes by reading the edited M
 - templates and references named in `SKILL.md` actually exist
 
 When changing workflow rules, verify examples and required output sections remain consistent with the referenced files.
+
+When changing install tooling, test with `--path` against a temporary directory before touching real user skill locations. Installer scripts must remain non-destructive: do not overwrite real directories or files at skill install paths.
 
 ## Commit & Pull Request Guidelines
 
